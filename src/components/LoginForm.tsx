@@ -1,8 +1,43 @@
+import { loginUser } from "@/api/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { loginSuccess } from "@/store/authSlice";
+import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
+import { toast } from "sonner";
+import Spinner from "./Spinner";
 
 const LoginForm = () => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  const mutation = useMutation({
+    mutationFn: loginUser,
+    onSuccess: (data) => {
+      dispatch(loginSuccess({ token: data.token }));
+      toast.success("Logged in successfully!");
+      navigate("/add-product");
+    },
+    onError: () => {
+      toast.error("Login failed. Please check credentials.");
+    },
+  });
+
+  const handleSubmit = () => {
+    mutation.mutate({
+      email: formData.email,
+      password: formData.password,
+    });
+  };
+
   return (
     <div className="w-full max-w-md space-y-6">
       <div className=" flex w-full justify-start items-center space-x-2">
@@ -28,6 +63,10 @@ const LoginForm = () => {
           </Label>
           <Input
             id="email"
+            value={formData.email}
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
             placeholder="Enter Email ID"
             type="email"
             className="bg-wb text-whi border-border  placeholder:text-muted-foreground h-12"
@@ -43,6 +82,10 @@ const LoginForm = () => {
           </Label>
           <Input
             id="password"
+            value={formData.password}
+            onChange={(e) =>
+              setFormData({ ...formData, password: e.target.value })
+            }
             placeholder="Enter the Password"
             type="password"
             className="bg-wb border-border text-whi placeholder:text-muted-foreground h-12"
@@ -50,8 +93,18 @@ const LoginForm = () => {
         </div>
 
         <div className="flex items-center gap-4 pt-4">
-          <Button className="bg-ash cursor-pointer font-medium px-8 text-green">
-            Login Now
+          <Button
+            onClick={handleSubmit}
+            className="bg-ash cursor-pointer font-medium px-8 text-green"
+          >
+            {mutation.isPending ? (
+              <>
+                Logging in...
+                <Spinner />
+              </>
+            ) : (
+              "Login Now"
+            )}
           </Button>
           <Button variant={"ghost"} className="text-whi cursor-pointer">
             Forgot Password ?

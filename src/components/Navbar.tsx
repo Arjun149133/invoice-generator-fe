@@ -1,10 +1,20 @@
 import { useLocation, useNavigate } from "react-router";
 import { Button } from "./ui/button";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { logout } from "@/store/authSlice";
+import { toast } from "sonner";
 
 const Navbar = () => {
   const path = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    toast.success("Logged out successfully");
+    navigate("/login");
+  };
 
   useEffect(() => {
     if (path.pathname === "/") {
@@ -43,7 +53,10 @@ const Navbar = () => {
         )}
 
         {path.pathname === "/add-product" && (
-          <Button className=" bg-green hover:bg-green/80 text-black p-1 text-sm lg:text-md lg:p-2 rounded lg:px-6">
+          <Button
+            onClick={handleLogout}
+            className=" bg-green hover:bg-green/80 text-black p-1 text-sm lg:text-md lg:p-2 rounded lg:px-6"
+          >
             Logout
           </Button>
         )}
