@@ -1,11 +1,11 @@
 import CorouselImages from "@/components/CorouselImages";
 import SignupForm from "@/components/SignUpForm";
 
-const images = [
-  "/public/billboard.png",
-  "/public/hall.png",
-  "/public/mobile.png",
-];
+import mobile from "@/assets/mobile.png";
+import hall from "@/assets/hall.png";
+import billboard from "@/assets/billboard.png";
+
+const images = [billboard, mobile, hall];
 
 const Register = () => {
   return (

@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "@/store/authSlice";
 import { toast } from "sonner";
+import logo from "@/assets/logo.svg";
 
 const Navbar = () => {
   const path = useLocation();
@@ -30,7 +31,7 @@ const Navbar = () => {
   return (
     <div className=" w-full sticky top-0 left-0 text-white flex justify-between items-center bg-wierd p-2">
       <div className=" flex space-x-2 ml-10">
-        <img src="/public/logo.svg" alt="logo" width={32} height={32} />
+        <img src={logo} alt="logo" width={32} height={32} />
         <div className=" flex flex-col">
           <h2 className=" text-md">Levitation</h2>
           <span className=" text-xs text-whi">infotech</span>

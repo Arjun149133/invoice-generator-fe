@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import Spinner from "./Spinner";
+import logo from "@/assets/logo.svg";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -41,7 +42,7 @@ const LoginForm = () => {
   return (
     <div className="w-full max-w-md space-y-6">
       <div className=" flex w-full justify-start items-center space-x-2">
-        <img src="/public/logo.svg" alt="logo" width={48} height={48} />
+        <img src={logo} alt="logo" width={48} height={48} />
         <div className=" flex flex-col">
           <h2 className=" text-xl font-raleway">levitation</h2>
           <span className=" text-sm text-whi">infotech</span>
