@@ -24,12 +24,14 @@ const AddProduct = () => {
   const [subTotal, setSubTotal] = useState(0);
   const [totalWithGst, setTotalWithGst] = useState(0);
   const [invoiceId, setInvoiceId] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [addLoading, setAddLoading] = useState(false);
+  const [generateLoading, setGenerateLoading] = useState(false);
+
   const invoiceIdref = useRef<string>("");
 
   // ✅ add product
   const addProduct = async () => {
-    setLoading(true);
+    setAddLoading(true);
     const qty = parseInt(form.quantity, 10);
     const rt = parseFloat(form.rate);
 
@@ -66,7 +68,7 @@ const AddProduct = () => {
       console.error("Error adding product:", error);
       toast.error("Failed to add product");
     } finally {
-      setLoading(false);
+      setAddLoading(false);
     }
   };
 
@@ -116,7 +118,7 @@ const AddProduct = () => {
 
   // ✅ download pdf
   const generatePDF = async () => {
-    setLoading(true);
+    setGenerateLoading(true);
     if (!invoiceId) {
       toast.error("Please generate an invoice first, refresh");
       return;
@@ -143,7 +145,7 @@ const AddProduct = () => {
       console.error(err);
       toast.error("Failed to generate PDF");
     } finally {
-      setLoading(false);
+      setGenerateLoading(false);
     }
   };
 
@@ -199,7 +201,7 @@ const AddProduct = () => {
             className="flex gap-2 bg-ash text-green items-center"
           >
             <Plus className="w-4 h-4" />{" "}
-            {loading ? (
+            {addLoading ? (
               <>
                 Adding... <Spinner />
               </>
@@ -259,7 +261,7 @@ const AddProduct = () => {
             className="flex bg-ash text-green gap-2 mx-auto"
           >
             <FileText className="w-4 h-4" />
-            {loading ? (
+            {generateLoading ? (
               <>
                 Generating PDF... <Spinner />
               </>
