@@ -1,6 +1,8 @@
 import axios from "axios";
 
-export const backendURL = "https://invoice-generator-be-ten.vercel.app";
+export const backendURL = "https://invoice-be.arjunyadav.website";
+// export const backendURL = "http://localhost:3001";
+
 // src/api/auth.ts
 export const registerUser = async (data: {
   username: string;

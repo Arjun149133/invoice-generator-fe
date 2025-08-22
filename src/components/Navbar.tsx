@@ -39,7 +39,12 @@ const Navbar = () => {
       </div>
       <div className=" mr-10">
         {path.pathname === "/register" && (
-          <Button className=" bg-green hover:bg-green/80 text-black lg:p-2 rounded lg:px-6">
+          <Button
+            onClick={() => {
+              navigate("/login");
+            }}
+            className=" bg-green hover:bg-green/80 text-black lg:p-2 rounded lg:px-6"
+          >
             Login
           </Button>
         )}

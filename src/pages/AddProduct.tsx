@@ -149,6 +149,17 @@ const AddProduct = () => {
     }
   };
 
+  if (!token) {
+    return (
+      <div
+        className="min-h-screen bg-[#141414] text-white flex items-center justify-center 
+      bg-[radial-gradient(circle_at_50%_10%,rgba(79,89,168,0.3),transparent_25%)]"
+      >
+        <h1 className=" text-3xl">Not Authorized Pleaze!</h1>
+      </div>
+    );
+  }
+
   return (
     <div
       className="min-h-screen bg-[#141414] text-white flex items-center justify-center 
